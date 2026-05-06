@@ -1,0 +1,198 @@
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f5f5f5;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 4px;
+    }
+
+    .slot-wrapper {
+      background: #fff;
+      border: 1px dashed #ccc;
+      padding: 12px;
+      margin: 16px auto;
+      max-width: 1000px;
+    }
+
+    .layout {
+      display: flex;
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .main {
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 300px;
+    }
+
+    h2 {
+      font-size: 13px;
+      color: #555;
+      padding: 8px 16px;
+      background: #eee;
+      margin: 24px 0 0;
+    }
+
+    /* ── Code Viewer ── */
+    #code-viewer {
+      max-width: 1000px;
+      margin: 32px auto 48px;
+      font-family: sans-serif;
+    }
+
+    #code-viewer .cv-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 10px 16px;
+      border-radius: 8px 8px 0 0;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    #code-viewer .cv-toggle:hover {
+      background: #2a2a3e;
+    }
+
+    #code-viewer .cv-toggle .arrow {
+      transition: transform .2s;
+      font-style: normal;
+    }
+
+    #code-viewer .cv-toggle .arrow.open {
+      transform: rotate(90deg);
+    }
+
+    #code-viewer .cv-body {
+      display: none;
+      border: 1px solid #313244;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+    }
+
+    #code-viewer .cv-body.open {
+      display: block;
+    }
+
+    #code-viewer .cv-tabs {
+      display: flex;
+      background: #181825;
+    }
+
+    #code-viewer .cv-tab {
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6c7086;
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+    }
+
+    #code-viewer .cv-tab:hover {
+      color: #cdd6f4;
+    }
+
+    #code-viewer .cv-tab.active {
+      color: #89b4fa;
+      border-bottom-color: #89b4fa;
+    }
+
+    #code-viewer .cv-panel {
+      display: none;
+      position: relative;
+      background: #1e1e2e;
+    }
+
+    #code-viewer .cv-panel.active {
+      display: block;
+    }
+
+    #code-viewer pre {
+      margin: 0;
+      padding: 20px 20px 20px 20px;
+      overflow-x: auto;
+      font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #cdd6f4;
+      tab-size: 2;
+    }
+
+    #code-viewer .cv-copy {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: #313244;
+      color: #cdd6f4;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    #code-viewer .cv-copy:hover {
+      background: #45475a;
+    }
+
+    #code-viewer .cv-copy.copied {
+      background: #a6e3a1;
+      color: #1e1e2e;
+    }
+
+    /* syntax highlight */
+    .kw {
+      color: #cba6f7;
+    }
+
+    /* keyword / tag */
+    .at {
+      color: #89b4fa;
+    }
+
+    /* attribute */
+    .st {
+      color: #a6e3a1;
+    }
+
+    /* string */
+    .cm {
+      color: #6c7086;
+      font-style: italic;
+    }
+
+    /* comment */
+    .fn {
+      color: #89dceb;
+    }
+
+    /* function */
+    .nu {
+      color: #fab387;
+    }
+
+    /* number */

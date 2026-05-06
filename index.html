@@ -104,6 +104,11 @@
       &lt;/&gt; &nbsp;Ver guia de implementação
     </div>
     <div class="cv-body" id="cv-body">
+      <div class="cv-config">
+        <label class="cv-config-label" for="cv-code-name">Code Name</label>
+        <input id="cv-code-name" class="cv-config-input" type="text" placeholder="ex: meunome" oninput="updateCodeName(this.value)">
+        <span class="cv-config-hint">preenche <code>{{CODE_NAME}}</code> no código abaixo</span>
+      </div>
       <div class="cv-tabs">
         <div class="cv-tab active" onclick="switchTab('head', this)">&lt;HEAD&gt; — Script de setup</div>
         <div class="cv-tab" onclick="switchTab('body', this)">&lt;BODY&gt; — Exemplos de slots</div>
@@ -114,7 +119,7 @@
         <button class="cv-copy" onclick="copyCode('panel-head', this)">Copiar</button>
         <pre><span class="cm">&lt;!-- ============================================== --&gt;</span>
 <span class="cm">&lt;!-- INÍCIO — COLAR NO &lt;HEAD&gt; (UMA ÚNICA VEZ)      --&gt;</span>
-<span class="cm">&lt;!-- A VARIAVEL {{CODE_NAME}} SERÁ ENVIADA JUNTO A CADA SOLICITAÇÃO DE ANÚNCIO E DEVE SER PREENCHIDA NA COLAGEM DO CÓDIGO NO SITE--&gt;</span>
+<span class="cm">&lt;!-- A VARIAVEL <span class="code-name-val">{{CODE_NAME}}</span> É PREENCHIDA AUTOMATICAMENTE PELO CAMPO ACIMA --&gt;</span>
 <span class="cm">&lt;!-- ============================================== --&gt;</span>
 <span class="kw">&lt;script</span> <span class="at">async</span> <span class="at">src</span>=<span class="st">"https://securepubads.g.doubleclick.net/tag/js/gpt.js"</span> <span class="at">crossorigin</span>=<span class="st">"anonymous"</span><span class="kw">&gt;&lt;/script&gt;</span>
 <span class="kw">&lt;script&gt;</span>
@@ -154,35 +159,35 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
     .<span class="fn">build</span>();
 
   <span class="cm">// Header — topo da página</span>
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/{{CODE_NAME}}'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">970</span>, <span class="nu">250</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">728</span>, <span class="nu">90</span>], [<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
     <span class="st">'ad-header'</span>)
     .<span class="fn">defineSizeMapping</span>(mapHeader)
     .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
   <span class="cm">// Conteúdo — meio do texto</span>
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/{{CODE_NAME}}'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">300</span>, <span class="nu">250</span>], [<span class="nu">336</span>, <span class="nu">280</span>]],
     <span class="st">'ad-conteudo'</span>)
     .<span class="fn">defineSizeMapping</span>(mapRetangulo)
     .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
   <span class="cm">// Sidebar — barra lateral</span>
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/{{CODE_NAME}}'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">300</span>, <span class="nu">600</span>], [<span class="nu">300</span>, <span class="nu">250</span>]],
     <span class="st">'ad-sidebar'</span>)
     .<span class="fn">defineSizeMapping</span>(mapSidebar)
     .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
   <span class="cm">// Rodapé</span>
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/{{CODE_NAME}}'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">728</span>, <span class="nu">90</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
     <span class="st">'ad-rodape'</span>)
     .<span class="fn">defineSizeMapping</span>(mapLeaderboard)
     .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
   <span class="cm">// Mobile only — banner exclusivo mobile</span>
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/{{CODE_NAME}}'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
     <span class="st">'ad-mobile'</span>)
     .<span class="fn">defineSizeMapping</span>(mapMobile)
@@ -250,6 +255,7 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
     </div>
   </div>
 
+  <h1 class="slot-wrapper text-center">ALGUNS EXEMPLOS DAS IMPLEMENTAÇÕES NA PRÁTICA</h1>
   <h2 class="slot-wrapper">HEADER — desktop: 970x250 · 970x90 · 728x90 | mobile: 320x100 · 320x50</h2>
   <div class="slot-wrapper">
     <div class="label">ad-header</div>
@@ -315,30 +321,14 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
     </div>
   </div>
 
-  <script>
-    function toggleViewer() {
-      var body = document.getElementById('cv-body');
-      var arrow = document.getElementById('cv-arrow');
-      var open = body.classList.toggle('open');
-      arrow.classList.toggle('open', open);
-    }
+  <h2 class="slot-wrapper">Documentação:</h2>
+  <div class="slot-wrapper">
+    <ul>
+      <p><a href="https://support.google.com/admanager/answer/1100453?hl=pt-br" target="_blank">https://support.google.com/admanager/answer/1100453?hl=pt-br</a></p>
+    </ul>
+  </div>
 
-    function switchTab(name, el) {
-      document.querySelectorAll('#code-viewer .cv-tab').forEach(function (t) { t.classList.remove('active'); });
-      document.querySelectorAll('#code-viewer .cv-panel').forEach(function (p) { p.classList.remove('active'); });
-      el.classList.add('active');
-      document.getElementById('panel-' + name).classList.add('active');
-    }
-
-    function copyCode(panelId, btn) {
-      var pre = document.querySelector('#' + panelId + ' pre');
-      navigator.clipboard.writeText(pre.innerText).then(function () {
-        btn.textContent = 'Copiado!';
-        btn.classList.add('copied');
-        setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
-      });
-    }
-  </script>
+  <script src="assets/script.js" defer></script>
 
 </body>
 

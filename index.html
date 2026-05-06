@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teste v2 — Implementação Amo Meu Pet</title>
+
+  <!-- ============================================== -->
+  <!-- INÍCIO — COLAR NO <HEAD> (UMA ÚNICA VEZ)      -->
+  <!-- ============================================== -->
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
+  <script>
+    window.googletag = window.googletag || { cmd: [] };
+
+    googletag.cmd.push(function () {
+
+      // Header: desktop grande, tablet leaderboard, mobile banner
+      var mapHeader = googletag.sizeMapping()
+        .addSize([970, 0], [[970, 250], [970, 90], [728, 90]])
+        .addSize([728, 0], [[728, 90]])
+        .addSize([0, 0], [[320, 100], [300, 100], [320, 50], [300, 50]])
+        .build();
+
+      // Leaderboard: desktop 728/970, mobile banner
+      var mapLeaderboard = googletag.sizeMapping()
+        .addSize([970, 0], [[970, 90], [728, 90]])
+        .addSize([728, 0], [[728, 90]])
+        .addSize([0, 0], [[320, 100], [300, 100], [320, 50], [300, 50]])
+        .build();
+
+      // Sidebar: desktop 300x600, mobile 300x250
+      var mapSidebar = googletag.sizeMapping()
+        .addSize([768, 0], [[300, 600], [300, 250]])
+        .addSize([0, 0], [[300, 250]])
+        .build();
+
+      // Retângulo: 300x250 e 336x280 em qualquer tela
+      var mapRetangulo = googletag.sizeMapping()
+        .addSize([0, 0], [[300, 250], [336, 280]])
+        .build();
+
+      // Mobile only: aparece só em telas menores que 768px
+      var mapMobile = googletag.sizeMapping()
+        .addSize([768, 0], [])
+        .addSize([0, 0], [[320, 100], [300, 100], [320, 50], [300, 50]])
+        .build();
+
+      // Header — topo da página
+      googletag.defineSlot('/7542/parceiros/amomeupet',
+        [[970, 250], [970, 90], [728, 90], [320, 100], [300, 100], [320, 50], [300, 50]],
+        'ad-header')
+        .defineSizeMapping(mapHeader)
+        .addService(googletag.pubads());
+
+      // Conteúdo — meio do texto
+      googletag.defineSlot('/7542/parceiros/amomeupet',
+        [[300, 250], [336, 280]],
+        'ad-conteudo')
+        .defineSizeMapping(mapRetangulo)
+        .addService(googletag.pubads());
+
+      // Sidebar — barra lateral
+      googletag.defineSlot('/7542/parceiros/amomeupet',
+        [[300, 600], [300, 250]],
+        'ad-sidebar')
+        .defineSizeMapping(mapSidebar)
+        .addService(googletag.pubads());
+
+      // Rodapé
+      googletag.defineSlot('/7542/parceiros/amomeupet',
+        [[728, 90], [970, 90], [320, 100], [300, 100], [320, 50], [300, 50]],
+        'ad-rodape')
+        .defineSizeMapping(mapLeaderboard)
+        .addService(googletag.pubads());
+
+      // Mobile only — banner exclusivo mobile
+      googletag.defineSlot('/7542/parceiros/amomeupet',
+        [[320, 100], [300, 100], [320, 50], [300, 50]],
+        'ad-mobile')
+        .defineSizeMapping(mapMobile)
+        .addService(googletag.pubads());
+
+      googletag.pubads().enableSingleRequest();
+      googletag.pubads().collapseEmptyDivs();
+      googletag.pubads().setCentering(true);
+      googletag.enableServices();
+    });
+  </script>
+  <!-- ============================================== -->
+  <!-- FIM — CÓDIGO DO <HEAD>                         -->
+  <!-- ============================================== -->
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      font-size: 14px;
+      color: #333;
+      background: #f5f5f5;
+    }
+
+    .label {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 4px;
+    }
+
+    .slot-wrapper {
+      background: #fff;
+      border: 1px dashed #ccc;
+      padding: 12px;
+      margin: 16px auto;
+      max-width: 1000px;
+    }
+
+    .layout {
+      display: flex;
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .main {
+      flex: 1;
+    }
+
+    .sidebar {
+      width: 300px;
+    }
+
+    h2 {
+      font-size: 13px;
+      color: #555;
+      padding: 8px 16px;
+      background: #eee;
+      margin: 24px 0 0;
+    }
+
+    /* ── Code Viewer ── */
+    #code-viewer {
+      max-width: 1000px;
+      margin: 32px auto 48px;
+      font-family: sans-serif;
+    }
+
+    #code-viewer .cv-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 10px 16px;
+      border-radius: 8px 8px 0 0;
+      user-select: none;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    #code-viewer .cv-toggle:hover {
+      background: #2a2a3e;
+    }
+
+    #code-viewer .cv-toggle .arrow {
+      transition: transform .2s;
+      font-style: normal;
+    }
+
+    #code-viewer .cv-toggle .arrow.open {
+      transform: rotate(90deg);
+    }
+
+    #code-viewer .cv-body {
+      display: none;
+      border: 1px solid #313244;
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+    }
+
+    #code-viewer .cv-body.open {
+      display: block;
+    }
+
+    #code-viewer .cv-tabs {
+      display: flex;
+      background: #181825;
+    }
+
+    #code-viewer .cv-tab {
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6c7086;
+      border-bottom: 2px solid transparent;
+      transition: all .15s;
+    }
+
+    #code-viewer .cv-tab:hover {
+      color: #cdd6f4;
+    }
+
+    #code-viewer .cv-tab.active {
+      color: #89b4fa;
+      border-bottom-color: #89b4fa;
+    }
+
+    #code-viewer .cv-panel {
+      display: none;
+      position: relative;
+      background: #1e1e2e;
+    }
+
+    #code-viewer .cv-panel.active {
+      display: block;
+    }
+
+    #code-viewer pre {
+      margin: 0;
+      padding: 20px 20px 20px 20px;
+      overflow-x: auto;
+      font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #cdd6f4;
+      tab-size: 2;
+    }
+
+    #code-viewer .cv-copy {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: #313244;
+      color: #cdd6f4;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    #code-viewer .cv-copy:hover {
+      background: #45475a;
+    }
+
+    #code-viewer .cv-copy.copied {
+      background: #a6e3a1;
+      color: #1e1e2e;
+    }
+
+    /* syntax highlight */
+    .kw {
+      color: #cba6f7;
+    }
+
+    /* keyword / tag */
+    .at {
+      color: #89b4fa;
+    }
+
+    /* attribute */
+    .st {
+      color: #a6e3a1;
+    }
+
+    /* string */
+    .cm {
+      color: #6c7086;
+      font-style: italic;
+    }
+
+    /* comment */
+    .fn {
+      color: #89dceb;
+    }
+
+    /* function */
+    .nu {
+      color: #fab387;
+    }
+
+    /* number */
+  </style>
+</head>
+
+<body>
+
+  <div id="code-viewer">
+    <div class="cv-toggle" onclick="toggleViewer()">
+      <em class="arrow" id="cv-arrow">▶</em>
+      &lt;/&gt; &nbsp;Ver código de implementação
+    </div>
+    <div class="cv-body" id="cv-body">
+      <div class="cv-tabs">
+        <div class="cv-tab active" onclick="switchTab('head', this)">&lt;HEAD&gt; — Script de setup</div>
+        <div class="cv-tab" onclick="switchTab('body', this)">&lt;BODY&gt; — Exemplos de slots</div>
+      </div>
+
+      <!-- TAB: HEAD -->
+      <div class="cv-panel active" id="panel-head">
+        <button class="cv-copy" onclick="copyCode('panel-head', this)">Copiar</button>
+        <pre><span class="cm">&lt;!-- ============================================== --&gt;</span>
+<span class="cm">&lt;!-- INÍCIO — COLAR NO &lt;HEAD&gt; (UMA ÚNICA VEZ)      --&gt;</span>
+<span class="cm">&lt;!-- ============================================== --&gt;</span>
+<span class="kw">&lt;script</span> <span class="at">async</span> <span class="at">src</span>=<span class="st">"https://securepubads.g.doubleclick.net/tag/js/gpt.js"</span> <span class="at">crossorigin</span>=<span class="st">"anonymous"</span><span class="kw">&gt;&lt;/script&gt;</span>
+<span class="kw">&lt;script&gt;</span>
+<span class="fn">window</span>.googletag = <span class="fn">window</span>.googletag || { cmd: [] };
+
+googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
+
+  <span class="cm">// Header: desktop grande, tablet leaderboard, mobile banner</span>
+  <span class="kw">var</span> mapHeader = googletag.<span class="fn">sizeMapping</span>()
+    .<span class="fn">addSize</span>([<span class="nu">970</span>, <span class="nu">0</span>], [[<span class="nu">970</span>, <span class="nu">250</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">728</span>, <span class="nu">90</span>]])
+    .<span class="fn">addSize</span>([<span class="nu">728</span>, <span class="nu">0</span>], [[<span class="nu">728</span>, <span class="nu">90</span>]])
+    .<span class="fn">addSize</span>([<span class="nu">0</span>,   <span class="nu">0</span>], [[<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]])
+    .<span class="fn">build</span>();
+
+  <span class="cm">// Leaderboard: desktop 728/970, mobile banner</span>
+  <span class="kw">var</span> mapLeaderboard = googletag.<span class="fn">sizeMapping</span>()
+    .<span class="fn">addSize</span>([<span class="nu">970</span>, <span class="nu">0</span>], [[<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">728</span>, <span class="nu">90</span>]])
+    .<span class="fn">addSize</span>([<span class="nu">728</span>, <span class="nu">0</span>], [[<span class="nu">728</span>, <span class="nu">90</span>]])
+    .<span class="fn">addSize</span>([<span class="nu">0</span>,   <span class="nu">0</span>], [[<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]])
+    .<span class="fn">build</span>();
+
+  <span class="cm">// Sidebar: desktop 300x600, mobile 300x250</span>
+  <span class="kw">var</span> mapSidebar = googletag.<span class="fn">sizeMapping</span>()
+    .<span class="fn">addSize</span>([<span class="nu">768</span>, <span class="nu">0</span>], [[<span class="nu">300</span>, <span class="nu">600</span>], [<span class="nu">300</span>, <span class="nu">250</span>]])
+    .<span class="fn">addSize</span>([<span class="nu">0</span>,   <span class="nu">0</span>], [[<span class="nu">300</span>, <span class="nu">250</span>]])
+    .<span class="fn">build</span>();
+
+  <span class="cm">// Retângulo: 300x250 e 336x280 em qualquer tela</span>
+  <span class="kw">var</span> mapRetangulo = googletag.<span class="fn">sizeMapping</span>()
+    .<span class="fn">addSize</span>([<span class="nu">0</span>, <span class="nu">0</span>], [[<span class="nu">300</span>, <span class="nu">250</span>], [<span class="nu">336</span>, <span class="nu">280</span>]])
+    .<span class="fn">build</span>();
+
+  <span class="cm">// Mobile only: aparece só em telas menores que 768px</span>
+  <span class="kw">var</span> mapMobile = googletag.<span class="fn">sizeMapping</span>()
+    .<span class="fn">addSize</span>([<span class="nu">768</span>, <span class="nu">0</span>], [])
+    .<span class="fn">addSize</span>([<span class="nu">0</span>,   <span class="nu">0</span>], [[<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]])
+    .<span class="fn">build</span>();
+
+  <span class="cm">// Header — topo da página</span>
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/amomeupet'</span>,
+    [[<span class="nu">970</span>, <span class="nu">250</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">728</span>, <span class="nu">90</span>], [<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
+    <span class="st">'ad-header'</span>)
+    .<span class="fn">defineSizeMapping</span>(mapHeader)
+    .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
+
+  <span class="cm">// Conteúdo — meio do texto</span>
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/amomeupet'</span>,
+    [[<span class="nu">300</span>, <span class="nu">250</span>], [<span class="nu">336</span>, <span class="nu">280</span>]],
+    <span class="st">'ad-conteudo'</span>)
+    .<span class="fn">defineSizeMapping</span>(mapRetangulo)
+    .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
+
+  <span class="cm">// Sidebar — barra lateral</span>
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/amomeupet'</span>,
+    [[<span class="nu">300</span>, <span class="nu">600</span>], [<span class="nu">300</span>, <span class="nu">250</span>]],
+    <span class="st">'ad-sidebar'</span>)
+    .<span class="fn">defineSizeMapping</span>(mapSidebar)
+    .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
+
+  <span class="cm">// Rodapé</span>
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/amomeupet'</span>,
+    [[<span class="nu">728</span>, <span class="nu">90</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
+    <span class="st">'ad-rodape'</span>)
+    .<span class="fn">defineSizeMapping</span>(mapLeaderboard)
+    .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
+
+  <span class="cm">// Mobile only — banner exclusivo mobile</span>
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/amomeupet'</span>,
+    [[<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
+    <span class="st">'ad-mobile'</span>)
+    .<span class="fn">defineSizeMapping</span>(mapMobile)
+    .<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
+
+  googletag.<span class="fn">pubads</span>().<span class="fn">enableSingleRequest</span>();
+  googletag.<span class="fn">pubads</span>().<span class="fn">collapseEmptyDivs</span>();
+  googletag.<span class="fn">pubads</span>().<span class="fn">setCentering</span>(<span class="kw">true</span>);
+  googletag.<span class="fn">enableServices</span>();
+});
+<span class="kw">&lt;/script&gt;</span>
+<span class="cm">&lt;!-- ============================================== --&gt;</span>
+<span class="cm">&lt;!-- FIM — CÓDIGO DO &lt;HEAD&gt;                         --&gt;</span>
+<span class="cm">&lt;!-- ============================================== --&gt;</span></pre>
+      </div>
+
+      <!-- TAB: BODY -->
+      <div class="cv-panel" id="panel-body">
+        <button class="cv-copy" onclick="copyCode('panel-body', this)">Copiar</button>
+        <pre><span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="cm">&lt;!-- HEADER — desktop: 970x250 · 970x90 · 728x90  --&gt;</span>
+<span class="cm">&lt;!--          mobile:  320x100 · 320x50            --&gt;</span>
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">id</span>=<span class="st">"ad-header"</span> <span class="at">style</span>=<span class="st">"text-align:center; margin:10px auto;"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;script&gt;</span>googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () { googletag.<span class="fn">display</span>(<span class="st">'ad-header'</span>); });<span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="cm">&lt;!-- CONTEÚDO — todas as telas: 300x250 · 336x280 --&gt;</span>
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">id</span>=<span class="st">"ad-conteudo"</span> <span class="at">style</span>=<span class="st">"text-align:center; margin:10px auto;"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;script&gt;</span>googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () { googletag.<span class="fn">display</span>(<span class="st">'ad-conteudo'</span>); });<span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="cm">&lt;!-- SIDEBAR — desktop: 300x600 · 300x250         --&gt;</span>
+<span class="cm">&lt;!--           mobile:  300x250                   --&gt;</span>
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">id</span>=<span class="st">"ad-sidebar"</span> <span class="at">style</span>=<span class="st">"margin:15px 0;"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;script&gt;</span>googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () { googletag.<span class="fn">display</span>(<span class="st">'ad-sidebar'</span>); });<span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="cm">&lt;!-- MOBILE — só aparece em telas &lt; 768px         --&gt;</span>
+<span class="cm">&lt;!--          320x100 · 320x50                    --&gt;</span>
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">id</span>=<span class="st">"ad-mobile"</span> <span class="at">style</span>=<span class="st">"text-align:center; margin:10px auto;"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;script&gt;</span>googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () { googletag.<span class="fn">display</span>(<span class="st">'ad-mobile'</span>); });<span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/div&gt;</span>
+
+
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="cm">&lt;!-- RODAPÉ — desktop: 970x90 · 728x90            --&gt;</span>
+<span class="cm">&lt;!--          mobile:  320x100 · 320x50           --&gt;</span>
+<span class="cm">&lt;!-- ─────────────────────────────────────────── --&gt;</span>
+<span class="kw">&lt;div</span> <span class="at">id</span>=<span class="st">"ad-rodape"</span> <span class="at">style</span>=<span class="st">"text-align:center; margin:10px auto;"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;script&gt;</span>googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () { googletag.<span class="fn">display</span>(<span class="st">'ad-rodape'</span>); });<span class="kw">&lt;/script&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="slot-wrapper">HEADER — desktop: 970x250 · 970x90 · 728x90 | mobile: 320x100 · 320x50</h2>
+  <div class="slot-wrapper">
+    <div class="label">ad-header</div>
+    <!-- ANÚNCIO — Header -->
+    <div id="ad-header" style="text-align:center; margin:10px auto;">
+      <script>googletag.cmd.push(function () { googletag.display('ad-header'); });</script>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div class="main">
+
+      <h2>CONTEÚDO — todas as telas: 300x250 · 336x280</h2>
+      <div class="slot-wrapper">
+        <div class="label">ad-conteudo</div>
+        <!-- ANÚNCIO — Conteúdo -->
+        <div id="ad-conteudo" style="text-align:center; margin:10px auto;">
+          <script>googletag.cmd.push(function () { googletag.display('ad-conteudo'); });</script>
+        </div>
+      </div>
+
+      <h2>MOBILE — só aparece em telas &lt; 768px: 320x100 · 320x50</h2>
+      <div class="slot-wrapper">
+        <div class="label">ad-mobile</div>
+        <div id="mobile-demo-note" style="
+          background:#fff8e1; border:1px solid #ffe082; border-radius:4px;
+          padding:8px 12px; margin-bottom:8px; font-size:12px; color:#795548;
+          display:flex; align-items:center; justify-content:space-between; gap:8px;">
+          <span>⚠️ GPT avalia o <code>sizeMapping</code> no carregamento. Recarregue com viewport &lt; 768px para ver este slot.</span>
+          <button onclick="location.reload()" style="
+            white-space:nowrap; background:#ffa000; color:#fff; border:none;
+            border-radius:4px; padding:4px 10px; font-size:11px; cursor:pointer;">
+            ↺ Recarregar
+          </button>
+        </div>
+        <!-- ANÚNCIO — Mobile -->
+        <div id="ad-mobile" style="text-align:center; margin:10px auto;">
+          <script>googletag.cmd.push(function () { googletag.display('ad-mobile'); });</script>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sidebar">
+      <h2>SIDEBAR — desktop: 300x600 · 300x250 | mobile: 300x250</h2>
+      <div class="slot-wrapper">
+        <div class="label">ad-sidebar</div>
+        <!-- ANÚNCIO — Sidebar -->
+        <div id="ad-sidebar" style="margin:15px 0;">
+          <script>googletag.cmd.push(function () { googletag.display('ad-sidebar'); });</script>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="slot-wrapper">RODAPÉ — desktop: 970x90 · 728x90 | mobile: 320x100 · 320x50</h2>
+  <div class="slot-wrapper">
+    <div class="label">ad-rodape</div>
+    <!-- ANÚNCIO — Rodapé -->
+    <div id="ad-rodape" style="text-align:center; margin:10px auto;">
+      <script>googletag.cmd.push(function () { googletag.display('ad-rodape'); });</script>
+    </div>
+  </div>
+
+  <script>
+    function toggleViewer() {
+      var body = document.getElementById('cv-body');
+      var arrow = document.getElementById('cv-arrow');
+      var open = body.classList.toggle('open');
+      arrow.classList.toggle('open', open);
+    }
+
+    function switchTab(name, el) {
+      document.querySelectorAll('#code-viewer .cv-tab').forEach(function (t) { t.classList.remove('active'); });
+      document.querySelectorAll('#code-viewer .cv-panel').forEach(function (p) { p.classList.remove('active'); });
+      el.classList.add('active');
+      document.getElementById('panel-' + name).classList.add('active');
+    }
+
+    function copyCode(panelId, btn) {
+      var pre = document.querySelector('#' + panelId + ' pre');
+      navigator.clipboard.writeText(pre.innerText).then(function () {
+        btn.textContent = 'Copiado!';
+        btn.classList.add('copied');
+        setTimeout(function () { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+
+</body>
+
+</html>

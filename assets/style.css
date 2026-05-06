@@ -68,6 +68,20 @@ a:hover { text-decoration: underline; }
   font-family: 'Google Sans', 'Roboto', sans-serif;
 }
 .gd-topnav__logo:hover { text-decoration: none; }
+.gd-topnav__brand {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+.gd-topnav__logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
 .gd-topnav__product {
   font-weight: 500;
   font-size: 16px;

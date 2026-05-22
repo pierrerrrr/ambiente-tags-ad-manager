@@ -452,6 +452,7 @@ p { margin-bottom: 16px; color: var(--grey-700); }
 .fn  { color: #61afef; }  /* function */
 .nu  { color: #d19a66; }  /* number */
 .code-name-val    { color: #e5c07b; font-weight: 600; }
+.mcm-network-val  { color: #e5c07b; font-weight: 600; }
 .code-name-filled { color: #98c379; }
 
 /* ── Ad Preview ────────────────────────────────────── */

@@ -16,47 +16,47 @@
   <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
   <script>
     window.googletag = window.googletag || { cmd: [] };
+
     googletag.cmd.push(function () {
+      // ── Size Mappings ──────────────────────────────
       var mapHeader = googletag.sizeMapping()
         .addSize([970, 0], [[970, 250], [970, 90], [728, 90]])
         .addSize([728, 0], [[728, 90]])
         .addSize([0, 0], [[320, 100], [300, 100], [320, 50], [300, 50]])
         .build();
+
       var mapLeaderboard = googletag.sizeMapping()
         .addSize([970, 0], [[970, 90], [728, 90]])
         .addSize([728, 0], [[728, 90]])
         .addSize([0, 0], [[320, 100], [300, 100], [320, 50], [300, 50]])
         .build();
+
       var mapSidebar = googletag.sizeMapping()
         .addSize([768, 0], [[300, 600], [300, 250]])
         .addSize([0, 0], [[300, 250]])
         .build();
+
       var mapRetangulo = googletag.sizeMapping()
         .addSize([0, 0], [[300, 250], [336, 280]])
         .build();
+
       var mapMobile = googletag.sizeMapping()
         .addSize([768, 0], [])
         .addSize([0, 0], [[320, 100], [300, 100], [320, 50], [300, 50]])
         .build();
 
-      googletag.defineSlot('/7542/r7home/home',
-        [[970, 250], [970, 90], [728, 90], [320, 100], [300, 100], [320, 50], [300, 50]], 'ad-header')
-        .defineSizeMapping(mapHeader).addService(googletag.pubads());
-      googletag.defineSlot('/7542/r7home/home',
-        [[300, 250], [336, 280]], 'ad-conteudo')
-        .defineSizeMapping(mapRetangulo).addService(googletag.pubads());
-      googletag.defineSlot('/7542/r7home/home',
-        [[300, 600], [300, 250]], 'ad-sidebar')
-        .defineSizeMapping(mapSidebar).addService(googletag.pubads());
-      googletag.defineSlot('/7542/r7home/home',
-        [[728, 90], [970, 90], [320, 100], [300, 100], [320, 50], [300, 50]], 'ad-rodape')
-        .defineSizeMapping(mapLeaderboard).addService(googletag.pubads());
-      googletag.defineSlot('/7542/r7home/home',
-        [[320, 100], [300, 100], [320, 50], [300, 50]], 'ad-mobile')
-        .defineSizeMapping(mapMobile).addService(googletag.pubads());
+      // ── Slots ──────────────────────────
+      googletag.defineSlot('/7542/parceiros/ofuxico', [[970, 250], [970, 90], [728, 90], [320, 100], [300, 100], [320, 50], [300, 50]], 'ad-header').defineSizeMapping(mapHeader).addService(googletag.pubads());
+      googletag.defineSlot('/7542/parceiros/ofuxico', [[300, 250], [336, 280]], 'ad-conteudo').defineSizeMapping(mapRetangulo).addService(googletag.pubads());
+      googletag.defineSlot('/7542/parceiros/ofuxico', [[300, 600], [300, 250]], 'ad-sidebar').defineSizeMapping(mapSidebar).addService(googletag.pubads());
+      googletag.defineSlot('/7542/parceiros/ofuxico', [[728, 90], [970, 90], [320, 100], [300, 100], [320, 50], [300, 50]], 'ad-rodape').defineSizeMapping(mapLeaderboard).addService(googletag.pubads());
+      googletag.defineSlot('/7542/parceiros/ofuxico', [[320, 100], [300, 100], [320, 50], [300, 50]], 'ad-mobile').defineSizeMapping(mapMobile).addService(googletag.pubads());
 
+      // ── Configurações Gerais ────────────────────────
       googletag.pubads().enableSingleRequest();
       googletag.pubads().collapseEmptyDivs();
+
+      // Ativa os serviços após mapear tudo
       googletag.enableServices();
     });
   </script>
@@ -179,9 +179,19 @@
       <section id="section-head">
         <h2 class="gd-h2">1. Código do <code class="gd-inline-code">&lt;head&gt;</code></h2>
         <p>Cole este bloco inteiro dentro do <code class="gd-inline-code">&lt;head&gt;</code> do seu HTML. Substitua
-          <code class="gd-inline-code">{{CODE_NAME}}</code> pelo identificador do seu site (ex: <em>meusite</em>).</p>
+          <code class="gd-inline-code">{{CODE_NAME}}</code> pelo identificador do seu site (ex: <em>meusite</em>).
+        </p>
 
         <!-- Code name input -->
+        <div class="gd-input-row">
+          <label class="gd-label" for="cv-mcm-code">MCM Code</label>
+          <div class="gd-input-wrap">
+            <input id="cv-mcm-code" class="gd-input" type="text" placeholder="ex: 123456789"
+              oninput="updateMCMCode(this.value)">
+            <span class="gd-input-hint">Preenche <code>{{MCM_CODE}}</code> no ad unit</span>
+          </div>
+        </div>
+
         <div class="gd-input-row">
           <label class="gd-label" for="cv-code-name">Code Name</label>
           <div class="gd-input-wrap">
@@ -242,27 +252,27 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
     .<span class="fn">build</span>();
 
   <span class="cm">// ── Slots ──────────────────────────────────────</span>
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542,<span class="mcm-network-val">{{MCM_CODE}}</span>/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">970</span>, <span class="nu">250</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">728</span>, <span class="nu">90</span>], [<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
     <span class="st">'ad-header'</span>)
     .<span class="fn">defineSizeMapping</span>(mapHeader).<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542,<span class="mcm-network-val">{{MCM_CODE}}</span>/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">300</span>, <span class="nu">250</span>], [<span class="nu">336</span>, <span class="nu">280</span>]],
     <span class="st">'ad-conteudo'</span>)
     .<span class="fn">defineSizeMapping</span>(mapRetangulo).<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542,<span class="mcm-network-val">{{MCM_CODE}}</span>/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">300</span>, <span class="nu">600</span>], [<span class="nu">300</span>, <span class="nu">250</span>]],
     <span class="st">'ad-sidebar'</span>)
     .<span class="fn">defineSizeMapping</span>(mapSidebar).<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542,<span class="mcm-network-val">{{MCM_CODE}}</span>/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">728</span>, <span class="nu">90</span>], [<span class="nu">970</span>, <span class="nu">90</span>], [<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
     <span class="st">'ad-rodape'</span>)
     .<span class="fn">defineSizeMapping</span>(mapLeaderboard).<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
-  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
+  googletag.<span class="fn">defineSlot</span>(<span class="st">'/7542,<span class="mcm-network-val">{{MCM_CODE}}</span>/parceiros/<span class="code-name-val">{{CODE_NAME}}</span>'</span>,
     [[<span class="nu">320</span>, <span class="nu">100</span>], [<span class="nu">300</span>, <span class="nu">100</span>], [<span class="nu">320</span>, <span class="nu">50</span>], [<span class="nu">300</span>, <span class="nu">50</span>]],
     <span class="st">'ad-mobile'</span>)
     .<span class="fn">defineSizeMapping</span>(mapMobile).<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
@@ -336,8 +346,12 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
         </div>
         <div class="gd-ad-preview">
           <div class="gd-ad-label">ad-header</div>
-          <div id="ad-header" style="text-align:center; margin:10px auto;">
-            <script>googletag.cmd.push(function () { googletag.display('ad-header'); });</script>
+          <div id="ad-header" data-google-query-id="COzJuZeyw5QDFb4OHgAdwuEXrg" style="display: none;">
+            <script>
+              googletag.cmd.push(function () {
+                googletag.display('ad-header');
+              });
+            </script>
           </div>
         </div>
         <div class="gd-code-block gd-code-block--sm" id="block-header-snippet">

@@ -1,4 +1,15 @@
 var CODE_NAME_PLACEHOLDER = '{{CODE_NAME}}';
+var MCM_CODE_PLACEHOLDER = '{{MCM_CODE}}';
+
+// ── MCM code live update ──────────────────────────────
+function updateMCMCode(value) {
+  var trimmed = value.trim();
+  var display = trimmed || MCM_CODE_PLACEHOLDER;
+  document.querySelectorAll('.mcm-network-val').forEach(function (el) {
+    el.textContent = display;
+    el.classList.toggle('mcm-code-filled', !!trimmed);
+  });
+}
 
 // ── Code name live update ─────────────────────────────
 function updateCodeName(value) {

@@ -54,10 +54,14 @@
 
       // ── Configurações Gerais ────────────────────────
       googletag.pubads().enableSingleRequest();
+
+      googletag.pubads().set('page_url', 'http://127.0.0.1:5500/');
+
       googletag.pubads().collapseEmptyDivs();
 
       // Ativa os serviços após mapear tudo
       googletag.enableServices();
+
     });
   </script>
 </head>
@@ -201,6 +205,16 @@
           </div>
         </div>
 
+        <div class="gd-input-row">
+          <label class="gd-label" for="cv-page-url">Page URL</label>
+          <div class="gd-input-wrap">
+            <input id="cv-page-url" class="gd-input" type="text" placeholder="ex: meusite.com.br"
+              oninput="updatePageUrl(this.value)">
+            <span class="gd-input-hint">Preenche <code>{{PAGE_URL}}</code> em
+              <code>pubads().set('page_url', …)</code></span>
+          </div>
+        </div>
+
         <div class="gd-code-block" id="block-head">
           <div class="gd-code-header">
             <div class="gd-code-tabs">
@@ -278,6 +292,7 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
     .<span class="fn">defineSizeMapping</span>(mapMobile).<span class="fn">addService</span>(googletag.<span class="fn">pubads</span>());
 
   googletag.pubads().<span class="fn">enableSingleRequest</span>();
+  googletag.pubads().<span class="fn">set</span>(<span class="st">'page_url'</span>, <span class="st">'<span class="page-url-val">{{PAGE_URL}}</span>'</span>);
   googletag.pubads().<span class="fn">collapseEmptyDivs</span>();
   googletag.<span class="fn">enableServices</span>();
 });
@@ -524,6 +539,21 @@ googletag.cmd.<span class="fn">push</span>(<span class="kw">function</span> () {
             <div>
               <strong>Google Publisher Tag — Get Started</strong>
               <span>developers.google.com/publisher-tag/guides/get-started</span>
+            </div>
+          </a>
+          <a class="gd-ref-link" href="assets/checklist-implementacao-tags.docx" download target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-list-checks-icon lucide-list-checks">
+              <path d="M13 5h8" />
+              <path d="M13 12h8" />
+              <path d="M13 19h8" />
+              <path d="m3 17 2 2 4-4" />
+              <path d="m3 7 2 2 4-4" />
+            </svg>
+            <div>
+              <strong>Checklist — Implementação de tags</strong>
+              <span>documento de checklist para implementação de tags</span>
             </div>
           </a>
         </div>

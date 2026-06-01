@@ -1,5 +1,6 @@
 var CODE_NAME_PLACEHOLDER = '{{CODE_NAME}}';
 var MCM_CODE_PLACEHOLDER = '{{MCM_CODE}}';
+var PAGE_URL_PLACEHOLDER = '{{PAGE_URL}}';
 
 // ── MCM code live update ──────────────────────────────
 function updateMCMCode(value) {
@@ -17,6 +18,15 @@ function updateCodeName(value) {
   document.querySelectorAll('.code-name-val').forEach(function (el) {
     el.textContent = display;
     el.classList.toggle('code-name-filled', !!value.trim());
+  });
+}
+
+// ── Page URL live update ──────────────────────────────
+function updatePageUrl(value) {
+  var display = value.trim() || PAGE_URL_PLACEHOLDER;
+  document.querySelectorAll('.page-url-val').forEach(function (el) {
+    el.textContent = display;
+    el.classList.toggle('page-url-filled', !!value.trim());
   });
 }
 
